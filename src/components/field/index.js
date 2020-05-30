@@ -62,6 +62,8 @@ export default class TextField extends PureComponent {
     lineType: 'solid',
     disabledLineType: 'dotted',
 
+    useNativeDriver: false,
+
     disabled: false,
   };
 
@@ -106,6 +108,8 @@ export default class TextField extends PureComponent {
 
     lineType: Line.propTypes.lineType,
     disabledLineType: Line.propTypes.lineType,
+
+    useNativeDriver: PropTypes.bool,
 
     disabled: PropTypes.bool,
 
@@ -219,11 +223,12 @@ export default class TextField extends PureComponent {
 
   startFocusAnimation() {
     let { focusAnimation } = this.state;
-    let { animationDuration: duration } = this.props;
+    let { animationDuration: duration, useNativeDriver } = this.props;
 
     let options = {
       toValue: this.focusState(),
       duration,
+      useNativeDriver,
     };
 
     startAnimation(focusAnimation, options, this.onFocusAnimationEnd);
@@ -231,11 +236,11 @@ export default class TextField extends PureComponent {
 
   startLabelAnimation() {
     let { labelAnimation } = this.state;
-    let { animationDuration: duration } = this.props;
+    let { animationDuration: duration, useNativeDriver } = this.props;
 
     let options = {
       toValue: this.labelState(),
-      useNativeDriver: true,
+      useNativeDriver,
       duration,
     };
 
